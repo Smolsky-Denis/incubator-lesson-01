@@ -25,35 +25,35 @@ export const videosValidation = (data: IVideoInputDTO): ValidationError[] => {
 
   if (!data.author || typeof data.author !== 'string' || data.title.length > maxLength.author) {
     errors.push({
-      field: 'title',
+      field: 'author',
       message: errorMessages.author
     })
   }
 
   if (!data.canBeDownloaded || typeof data.canBeDownloaded !== 'boolean') {
     errors.push({
-      field: 'title',
-      message: errorMessages.author
+      field: 'canBeDownloaded',
+      message: errorMessages.canBeDownloaded
     })
   }
 
-  if (!data.minAgeRestriction || typeof data.minAgeRestriction !== 'number' || typeof data.minAgeRestriction !== null) {
+  if (typeof data.minAgeRestriction !== 'number' || typeof data.minAgeRestriction !== null) {
     errors.push({
-      field: 'title',
+      field: 'minAgeRestriction',
       message: errorMessages.minAgeRestriction
     })
   }
 
   if (!data.createdAt || typeof data.createdAt !== "string") {
     errors.push({
-      field: 'title',
+      field: 'createdAt',
       message: errorMessages.createdAt
     })
   }
 
   if (!data.publicationDate || typeof data.publicationDate !== "string") {
     errors.push({
-      field: 'title',
+      field: 'publicationDate',
       message: errorMessages.publicationDate
     })
   }
@@ -62,7 +62,7 @@ export const videosValidation = (data: IVideoInputDTO): ValidationError[] => {
       || !Array.isArray(data.availableResolutions)
       || !data.availableResolutions.length) {
     errors.push({
-      field: 'title',
+      field: 'availableResolutions',
       message: errorMessages.availableResolutions
     })
   }

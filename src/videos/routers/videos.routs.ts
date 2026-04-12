@@ -22,7 +22,7 @@ export const videosRouter = Router({})
 
     .post("/", (req: Request, res: Response) => {
       //1) проверяем приходящие данные на валидность
-    const errors = videosValidation(req.body);
+      const errors = videosValidation(req.body);
 
       if (errors.length > 0) {
         res.status(HttpStatus.methodNoteAllowed).send(createErrorMessages(errors));
@@ -58,8 +58,12 @@ export const videosRouter = Router({})
     })
 
     .delete("/:id", (req: Request, res: Response) => {
+
       const id = Number(req.params.id)
       const index = db.videos.findIndex(video => video.id === id)
+      if (index === -1) {
+        res.sendStatus(HttpStatus.notFound)
+      }
       db.videos.splice(index, 1)
       res.sendStatus(HttpStatus.noContent)
     })

@@ -18,6 +18,7 @@ export enum errorMessages {
     id = "invalid Id",
     title = "invalid title",
     author = "invalid author",
+    canBeDownloaded = "invalid canBeDownloaded",
     minAgeRestriction = 'invalid minAgeRestriction',
     publicationDate = "invalid publicationDate",
     createdAt = "invalid createdAt",
