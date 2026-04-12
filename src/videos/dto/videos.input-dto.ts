@@ -1,16 +1,12 @@
 import {AvailableResolutions} from "../../core/constants";
 
-export interface IVideo {
+export interface IVideoInputDTO {
   id: number
   title: string
   author: string
   canBeDownloaded: boolean
   minAgeRestriction: number | null
-  createdAt: Date
-  publicationDate: Date
+  createdAt: string
+  publicationDate: string
   availableResolutions: AvailableResolutions[]
-}
-
-export interface Idb {
-  videos: IVideo[]
 }

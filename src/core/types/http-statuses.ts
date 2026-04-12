@@ -4,5 +4,5 @@ export enum HttpStatus {
     noContent = 204,
     badRequest = 400,
     notFound = 404,
-
+    methodNoteAllowed =405
 }

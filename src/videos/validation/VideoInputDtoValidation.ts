@@ -1,0 +1,71 @@
+import {ValidationError} from "./validationError";
+import {errorMessages, maxLength} from "../../core/constants";
+import {IVideoInputDTO} from "../dto/videos.input-dto";
+import {isArray} from "node:util";
+
+
+export const videosValidation = (data: IVideoInputDTO): ValidationError[] => {
+
+  const errors: ValidationError[] = [];
+
+
+  if (!data.id && typeof data.id !== 'number') {
+    errors.push({
+      field: 'id',
+      message: errorMessages.id
+    })
+  }
+
+  if (!data.title || typeof data.title !== 'string' || data.title.length > maxLength.title) {
+    errors.push({
+      field: 'title',
+      message: errorMessages.title
+    })
+  }
+
+  if (!data.author || typeof data.author !== 'string' || data.title.length > maxLength.author) {
+    errors.push({
+      field: 'title',
+      message: errorMessages.author
+    })
+  }
+
+  if (!data.canBeDownloaded || typeof data.canBeDownloaded !== 'boolean') {
+    errors.push({
+      field: 'title',
+      message: errorMessages.author
+    })
+  }
+
+  if (!data.minAgeRestriction || typeof data.minAgeRestriction !== 'number' || typeof data.minAgeRestriction !== null) {
+    errors.push({
+      field: 'title',
+      message: errorMessages.minAgeRestriction
+    })
+  }
+
+  if (!data.createdAt || typeof data.createdAt !== "string") {
+    errors.push({
+      field: 'title',
+      message: errorMessages.createdAt
+    })
+  }
+
+  if (!data.publicationDate || typeof data.publicationDate !== "string") {
+    errors.push({
+      field: 'title',
+      message: errorMessages.publicationDate
+    })
+  }
+
+  if (!data.availableResolutions
+      || !Array.isArray(data.availableResolutions)
+      || !data.availableResolutions.length) {
+    errors.push({
+      field: 'title',
+      message: errorMessages.availableResolutions
+    })
+  }
+
+  return errors;
+}

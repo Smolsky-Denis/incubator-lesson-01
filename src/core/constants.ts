@@ -8,3 +8,18 @@ export enum AvailableResolutions {
     P1440 = "P1440",
     P2160 = "P2160",
 }
+
+export enum maxLength {
+    title = 40,
+    author = 20
+}
+
+export enum errorMessages {
+    id = "invalid Id",
+    title = "invalid title",
+    author = "invalid author",
+    minAgeRestriction = 'invalid minAgeRestriction',
+    publicationDate = "invalid publicationDate",
+    createdAt = "invalid createdAt",
+    availableResolutions = "invalid availableResolutions",
+}
