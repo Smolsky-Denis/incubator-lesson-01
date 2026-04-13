@@ -32,6 +32,7 @@ export const videosRouter = Router({})
       //2) создаем newVideo
       const now = new Date();
       const defaultVal = {
+        minAgeRestriction: null,
         createdAt: now.toISOString(),
         canBeDownloaded: false,
         publicationDate: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString(),
