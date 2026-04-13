@@ -74,7 +74,7 @@ export const videosRouter = Router({})
       const id = Number(req.params.id)
       const idErrors = idValidation(id)
       if (idErrors.length > 0) {
-        res.status(HttpStatus.notFound).send(createErrorMessages(errors));
+        res.status(HttpStatus.notFound).send(createErrorMessages(idErrors));
         return;
       }
       const index = db.videos.findIndex(video => video.id === id)
