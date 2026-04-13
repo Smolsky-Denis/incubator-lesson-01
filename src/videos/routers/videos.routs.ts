@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import {db} from "../../db/db";
 import {IVideo} from "../types/types";
 import {HttpStatus} from "../../core/types/http-statuses";
-import {createVideoDtoValidation, putDataDtoValidation} from "../validation/DtoValidation";
+import {createVideoDtoValidation, idValidation, putDataDtoValidation} from "../validation/DtoValidation";
 import {ValidationError} from "../validation/validationError";
 
 const createErrorMessages = (
@@ -44,6 +44,11 @@ export const videosRouter = Router({})
     .get("/:id", (req: Request, res: Response) => {
       //поиск видео по id
       const id = Number(req.params.id)
+      const errors = idValidation(id)
+      if (errors.length > 0) {
+        res.status(HttpStatus.notFound).send(createErrorMessages(errors));
+        return;
+      }
       const video = db.videos.find((video) => video.id === id)
       if (!video) {
         res.status(HttpStatus.notFound).send('id doesn\'t exist')
@@ -59,6 +64,11 @@ export const videosRouter = Router({})
       }
 
       const id = Number(req.params.id)
+      const idErrors = idValidation(id)
+      if (idErrors.length > 0) {
+        res.status(HttpStatus.notFound).send(createErrorMessages(errors));
+        return;
+      }
       const index = db.videos.findIndex(video => video.id === id)
 
       if (index === -1) {
@@ -73,6 +83,11 @@ export const videosRouter = Router({})
     .delete("/:id", (req: Request, res: Response) => {
 
       const id = Number(req.params.id)
+      const errors = idValidation(id)
+      if (errors.length > 0) {
+        res.status(HttpStatus.notFound).send(createErrorMessages(errors));
+        return;
+      }
       const index = db.videos.findIndex(video => video.id === id)
       if (index === -1) {
         res.sendStatus(HttpStatus.notFound)

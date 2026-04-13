@@ -1,6 +1,6 @@
 import {ValidationError} from "./validationError";
 import {errorMessages, maxLength} from "../../core/constants";
-import {CreateVideoDataInputDTO, IVideoInputDTO, PutVideoInputDTO} from "../dto/videos.input-dto";
+import {CreateVideoDataInputDTO, IdVideoDTO, IVideoInputDTO, PutVideoInputDTO} from "../dto/videos.input-dto";
 
 
 export const createVideoDtoValidation = (data: CreateVideoDataInputDTO) => {
@@ -49,6 +49,17 @@ export const putDataDtoValidation = (data: PutVideoInputDTO) => {
     })
   }
 
+  return errors
+}
+
+export const idValidation = (id: number) => {
+  const errors: ValidationError[] = [];
+  if (typeof id !== 'number' || !(id >= 0)) {
+    errors.push({
+      field: 'id',
+      message: errorMessages.id
+    })
+  }
   return errors
 }
 

@@ -11,6 +11,10 @@ export interface IVideoInputDTO {
   availableResolutions: AvailableResolutions[]
 }
 
+export type IdVideoDTO = {
+  id: number
+}
+
 export type CreateVideoDataInputDTO = {
   title: string,
   author: string,
