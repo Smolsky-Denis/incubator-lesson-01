@@ -12,7 +12,7 @@ export const createVideoDtoValidation = (data: CreateVideoDataInputDTO) => {
     })
   }
 
-  if (!data.author || typeof data.author !== 'string' || data.title.length > maxLength.author) {
+  if (!data.author || typeof data.author !== 'string' || data.author.length > maxLength.author) {
     errors.push({
       field: 'author',
       message: errorMessages.author
