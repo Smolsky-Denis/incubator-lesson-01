@@ -53,6 +53,7 @@ export const videosRouter = Router({})
       if (!video) {
         res.status(HttpStatus.notFound).send('id doesn\'t exist')
       }
+      res.status(HttpStatus.success).send(video);
     })
 
     .put("/:id", (req: Request, res: Response) => {

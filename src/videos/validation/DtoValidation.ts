@@ -54,7 +54,7 @@ export const putDataDtoValidation = (data: PutVideoInputDTO) => {
 
 export const idValidation = (id: number) => {
   const errors: ValidationError[] = [];
-  if (typeof id !== 'number' || !(id >= 0)) {
+  if (Number.isNaN(id) || id < 1) {
     errors.push({
       field: 'id',
       message: errorMessages.id
