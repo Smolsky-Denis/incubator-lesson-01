@@ -1,7 +1,56 @@
 import {ValidationError} from "./validationError";
 import {errorMessages, maxLength} from "../../core/constants";
-import {IVideoInputDTO} from "../dto/videos.input-dto";
-import {isArray} from "node:util";
+import {CreateVideoDataInputDTO, IVideoInputDTO, PutVideoInputDTO} from "../dto/videos.input-dto";
+
+
+export const createVideoDtoValidation = (data: CreateVideoDataInputDTO) => {
+  const errors: ValidationError[] = [];
+  if (!data.title || typeof data.title !== 'string' || data.title.length > maxLength.title) {
+    errors.push({
+      field: 'title',
+      message: errorMessages.title
+    })
+  }
+
+  if (!data.author || typeof data.author !== 'string' || data.title.length > maxLength.author) {
+    errors.push({
+      field: 'author',
+      message: errorMessages.author
+    })
+  }
+
+  if (!data.availableResolutions
+      || !Array.isArray(data.availableResolutions)
+      || !data.availableResolutions.length) {
+    errors.push({
+      field: 'availableResolutions',
+      message: errorMessages.availableResolutions
+    })
+  }
+
+  return errors
+}
+
+export const putDataDtoValidation = (data: PutVideoInputDTO) => {
+  const errors = createVideoDtoValidation(data)
+
+  if (!data.canBeDownloaded || typeof data.canBeDownloaded !== 'boolean') {
+      errors.push({
+        field: 'canBeDownloaded',
+        message: errorMessages.canBeDownloaded
+    })
+  }
+
+  if (!data.minAgeRestriction || typeof data.minAgeRestriction !== 'number'
+      || data.minAgeRestriction <= 18 || data.minAgeRestriction >= 1) {
+      errors.push({
+        field: 'minAgeRestriction',
+        message: errorMessages.minAgeRestriction
+    })
+  }
+
+  return errors
+}
 
 
 export const videosValidation = (data: IVideoInputDTO): ValidationError[] => {

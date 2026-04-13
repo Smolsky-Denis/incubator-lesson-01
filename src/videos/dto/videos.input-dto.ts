@@ -10,3 +10,15 @@ export interface IVideoInputDTO {
   publicationDate: string
   availableResolutions: AvailableResolutions[]
 }
+
+export type CreateVideoDataInputDTO = {
+  title: string,
+  author: string,
+  availableResolutions: AvailableResolutions[]
+}
+
+export type PutVideoInputDTO = CreateVideoDataInputDTO & {
+  canBeDownloaded: boolean,
+  minAgeRestriction: number,
+  publicationDate: string,
+}

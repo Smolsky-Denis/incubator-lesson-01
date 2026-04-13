@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import {db} from "../../db/db";
 import {IVideo} from "../types/types";
 import {HttpStatus} from "../../core/types/http-statuses";
-import {videosValidation} from "../validation/VideoInputDtoValidation";
+import {createVideoDtoValidation, putDataDtoValidation} from "../validation/DtoValidation";
 import {ValidationError} from "../validation/validationError";
 
 const createErrorMessages = (
@@ -22,10 +22,10 @@ export const videosRouter = Router({})
 
     .post("/", (req: Request, res: Response) => {
       //1) проверяем приходящие данные на валидность
-      const errors = videosValidation(req.body);
+      const errors = createVideoDtoValidation(req.body);
 
       if (errors.length > 0) {
-        res.status(HttpStatus.methodNoteAllowed).send(createErrorMessages(errors));
+        res.status(HttpStatus.badRequest).send(createErrorMessages(errors));
         return;
       }
 
@@ -51,8 +51,21 @@ export const videosRouter = Router({})
     })
 
     .put("/:id", (req: Request, res: Response) => {
+      const errors = putDataDtoValidation(req.body)
+
+      if (errors.length > 0) {
+        res.status(HttpStatus.badRequest).send(createErrorMessages(errors));
+        return;
+      }
+
       const id = Number(req.params.id)
       const index = db.videos.findIndex(video => video.id === id)
+
+      if (index === -1) {
+        res.status(HttpStatus.notFound).send('id doesn\'t exist')
+        return;
+      }
+
       db.videos[index] = {...db.videos[index], ...req.body}
       res.sendStatus(HttpStatus.noContent)
     })
