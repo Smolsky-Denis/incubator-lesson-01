@@ -41,12 +41,19 @@ export const putDataDtoValidation = (data: PutVideoInputDTO) => {
     })
   }
 
-  if (!data.minAgeRestriction || typeof data.minAgeRestriction !== 'number'
-      || data.minAgeRestriction <= 18 || data.minAgeRestriction >= 1) {
-      errors.push({
-        field: 'minAgeRestriction',
-        message: errorMessages.minAgeRestriction
-    })
+  const age = data.minAgeRestriction;
+
+  if (
+      age !== null && (
+          typeof age !== 'number' ||
+          age < 1 ||
+          age > 18
+      )
+  ) {
+    errors.push({
+      field: 'minAgeRestriction',
+      message: errorMessages.minAgeRestriction
+    });
   }
 
   return errors
@@ -97,11 +104,16 @@ export const videosValidation = (data: IVideoInputDTO): ValidationError[] => {
     })
   }
 
-  if (typeof data.minAgeRestriction !== 'number' || typeof data.minAgeRestriction !== null) {
+  if (
+      data.minAgeRestriction !== null &&
+      (typeof data.minAgeRestriction !== 'number' ||
+          data.minAgeRestriction < 1 ||
+          data.minAgeRestriction > 18)
+  ) {
     errors.push({
       field: 'minAgeRestriction',
       message: errorMessages.minAgeRestriction
-    })
+    });
   }
 
   if (!data.createdAt || typeof data.createdAt !== "string") {
