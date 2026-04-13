@@ -30,12 +30,11 @@ export const videosRouter = Router({})
       }
 
       //2) создаем newVideo
-      const date = new Date().toISOString()
+      const now = new Date();
       const defaultVal = {
-        createdAt: date,
+        createdAt: now.toISOString(),
         canBeDownloaded: false,
-        publicationDate:  date,
-
+        publicationDate: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString(),
       }
       const newVideo: IVideo = {
         id: db.videos.length ? db.videos[db.videos.length - 1].id + 1 : 0,
