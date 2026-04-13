@@ -6,10 +6,10 @@ import {createVideoDtoValidation, idValidation, putDataDtoValidation} from "../v
 import {ValidationError} from "../validation/validationError";
 
 const createErrorMessages = (
-      errors: ValidationError[],
-  ): { errorMessages: ValidationError[] } => {
-    return { errorMessages: errors };
-  };
+    errors: ValidationError[],
+): { errorsMessages: ValidationError[] } => {
+  return { errorsMessages: errors };
+};
 
 export const videosRouter = Router({})
 
